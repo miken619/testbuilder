@@ -16,10 +16,11 @@ var detectNetwork = function(cardNumber) {
 
   var length = cardNumber.length;
   var firstCharVal = cardNumber.charAt(0);
-  var secondCharVal = cardNumber.charAt(1);
-  var fourSubstring = cardNumber.substring(0,4);
-  var threeSubstring = cardNumber.substring(0,3);
+  var secondCharVal = cardNumber.charAt(1); 
   var twoSubstring = cardNumber.substring(0,2);
+  var threeSubstring = cardNumber.substring(0,3);
+  var fourSubstring = cardNumber.substring(0,4);
+  var sixSubstring = cardNumber.substring(0,6);
 
   
   if(firstCharVal === '3'){
@@ -28,6 +29,12 @@ var detectNetwork = function(cardNumber) {
   	}else if(length === 15 && (secondCharVal === '4' || secondCharVal === '7')){
   		return "American Express";
   	}
+  }else if(fourSubstring === '4903' || fourSubstring === '4905' || fourSubstring === '4911' || 
+           fourSubstring === '4936' || fourSubstring === '6333' || fourSubstring === '6759' || 
+           sixSubstring === '564182' || sixSubstring === '633110'){
+    if(length === 16 || length === 18 || length === 19){
+      return "Switch";
+    }
   }else if(firstCharVal === '4'){
   	if(length === 13 || length === 16 || length === 19){
   		return "Visa";
@@ -53,6 +60,13 @@ var detectNetwork = function(cardNumber) {
   	if(length === 16 || length === 19){
   		return "Discover";
   	}
+
+  }else if((parseInt(sixSubstring) >= 622126 && parseInt(sixSubstring) <= 622925) ||
+            (parseInt(threeSubstring) >= 624 && parseInt(threeSubstring) <= 626) ||
+            (parseInt(fourSubstring) >= 6282 && parseInt(fourSubstring) <= 6288)){
+    if(length >= 16 && length <= 19){
+      return "China UnionPay";
+    }
 
   }
 
